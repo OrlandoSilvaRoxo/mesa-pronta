@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     var modal = document.getElementById('modalReserva');
-    modal.style.display = 'none';  // Força o modal a ficar escondido ao carregar a página
+    modal.style.display = 'none';  
     setupModal();
     if (document.getElementById('tabelaMesas')) {
         exibirMesasAdmin();
@@ -10,16 +10,16 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 let mesas = [
-    { id: 1, coordenadas: 'A9', status: 'Disponível', nome: "" },
+    { id: 1, coordenadas: 'A1', status: 'Disponível', nome: "" },
     { id: 2, coordenadas: 'A2', status: 'Reservado', nome: "Paula" },
     { id: 3, coordenadas: 'B1', status: 'Disponível', nome: "" },
-    { id: 4, coordenadas: 'A3', status: 'Disponível', nome: "" },
-    { id: 5, coordenadas: 'A5', status: 'Reservado', nome: "Orlando" },
-    { id: 6, coordenadas: 'B2', status: 'Disponível', nome: "" },
-    { id: 7, coordenadas: 'A1', status: 'Disponível', nome: "" },
-    { id: 8, coordenadas: 'A3', status: 'Reservado', nome: "Claudia" },
-    { id: 9, coordenadas: 'B5', status: 'Disponível', nome: "" },
-    { id: 10, coordenadas: 'B6', status: 'Disponível', nome: "" }
+    { id: 4, coordenadas: 'B2', status: 'Disponível', nome: "" },
+    { id: 5, coordenadas: 'C1', status: 'Reservado', nome: "Orlando" },
+    { id: 6, coordenadas: 'C2', status: 'Disponível', nome: "" },
+    { id: 7, coordenadas: 'D1', status: 'Disponível', nome: "" },
+    { id: 8, coordenadas: 'D2', status: 'Reservado', nome: "Claudia" },
+    { id: 9, coordenadas: 'E1', status: 'Disponível', nome: "" },
+    { id: 10, coordenadas: 'E2', status: 'Disponível', nome: "" }
 ];
 
 function exibirMesasAdmin() {
