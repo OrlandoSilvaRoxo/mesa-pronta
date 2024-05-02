@@ -123,3 +123,25 @@ function abrirModal(index) {
     }
 }
 
+function adicionarMesa() {
+    document.getElementById('addMesaModal').style.display = 'flex';
+}
+
+function closeAddModal() {
+    document.getElementById('addMesaModal').style.display = 'none';
+}
+
+function salvarNovaMesa() {
+    var coordenadas = document.getElementById('coordenadas').value.trim();
+    var nome = document.getElementById('nome').value.trim();
+    var novaMesa = {
+        id: mesas.length + 1,
+        coordenadas: coordenadas,
+        status: nome ? 'Reservado' : 'Disponível',
+        nome: nome
+    };
+    mesas.push(novaMesa);
+    exibirMesasAdmin();
+    closeAddModal();
+}
+
