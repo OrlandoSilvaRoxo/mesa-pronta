@@ -1,5 +1,5 @@
 body {
-    font-family: 'Impact', sans-serif; /* Usar uma fonte mais limpa */
+    font-family: 'Impact', sans-serif;
     background-color: rgba(0,0,0,0.4);
     background-image: repeating-linear-gradient(
         45deg,
@@ -9,54 +9,68 @@ body {
         #F0FFF0 20px
     );
     margin: 0;
-    padding: 0;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o conte�do na vertical */
-    justify-content: center; /* Centraliza o conte�do na horizontal */
-    height: 100vh; /* Torna a altura do body 100% da tela */
+    align-items: center;
+    min-height: 100vh;
 }
 
 h1 {
-    font-family: 'Impact', cursive; /* Fonte cursiva, ou 'Brush Script MT' se preferir e estiver dispon�vel */
+    font-size: 32px;
+    color: #002c2c;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    margin: 20px 0 10px;
     text-align: center;
-    color: #002c2c; /* Cor do texto branco */
-    font-size: 48px; /* Tamanho maior do texto */
-    margin-top: 20px;
-    text-shadow: 20px 20px 40px rgba(1, 1, 1, 1.6); /* Sombra preta com certa transpar�ncia */
 }
 
+.navbar {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 
+.navbar a {
+    color: white;
+    margin: 0 15px;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    background-color: #555;
+    border-radius: 4px;
+}
+
+.navbar a:hover {
+    background-color: #777;
+}
 
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
-    background-image: repeating-linear-gradient(
-        45deg,
-        #bfeded,
-        #bfeded 10px,
-        #F0FFF0 10px,
-        #F0FFF0 20px
-    );
-    align-items: center; /* Centraliza o conte�do do modal */
-    justify-content: center; /* Centraliza o conte�do do modal */
-    display: flex; /* Permite centralizar com flexbox */
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 .modal-content {
     background-color: #fefefe;
     padding: 20px;
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra para destacar o modal */
-    width: 80%; /* Ajusta a largura para mobile-first */
-    max-width: 500px; /* M�ximo de largura */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    width: 80%;
+    max-width: 500px;
 }
 
 .close {
@@ -73,7 +87,7 @@ h1 {
 }
 
 input[type="text"], button {
-    width: 100%; /* Aproveita a largura total do modal */
+    width: 100%;
     padding: 10px;
     margin-top: 10px;
     border: none;
@@ -81,13 +95,49 @@ input[type="text"], button {
 }
 
 button {
-    font-family: 'Impact', sans-serif;
-    background-color: #008cba; /* Cor azul para destaque */
+    background-color: #008cba;
     color: white;
     font-size: 16px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #005f7a; /* Cor mais escura ao passar o mouse */
+    background-color: #005f7a;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+td, th {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: center;
+    color: #333;
+}
+
+th {
+    background-color: #f2f2f2;
+    color: #000;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+table button {
+    padding: 4px 8px;
+    font-size: 12px;
+    margin: 0 2px;
+    background-color: #008cba;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+table button:hover {
+    background-color: #005f7a;
 }

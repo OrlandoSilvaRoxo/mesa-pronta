@@ -39,26 +39,20 @@ function exibirMesasAdmin() {
     });
 }
 
+
 function exibirMesasCliente() {
-    const container = document.getElementById('mesas');
-    container.innerHTML = '';
+    const tbody = document.getElementById('clienteMesas').getElementsByTagName('tbody')[0];
+    tbody.innerHTML = '';  // Limpa qualquer conteúdo existente
     mesas.forEach((mesa, index) => {
-        const div = document.createElement('div');
-        div.classList.add('mesa');
-        div.innerHTML = `Mesa ${mesa.id} em ${mesa.coordenadas}: ${mesa.status}` +
-                        (mesa.nome ? ` - Cliente: ${mesa.nome}` : '') +
-                        `<button onclick="abrirModal(${index})">Reservar</button>`;
-        container.appendChild(div);
+        let row = tbody.insertRow();  // Cria uma nova linha
+        row.insertCell(0).innerText = mesa.id;  // ID da mesa
+        row.insertCell(1).innerText = mesa.coordenadas;  // Coordenadas
+        row.insertCell(2).innerText = mesa.status;  // Status da reserva
+        row.insertCell(3).innerText = mesa.nome ? mesa.nome : 'N/A';  // Nome do cliente
+        row.insertCell(4).innerHTML = `<button onclick="abrirModal(${index})">Reservar</button>`;  // Botão de ação
     });
 }
 
-function adicionarMesa() {
-    const novaId = mesas.length > 0 ? mesas[mesas.length - 1].id + 1 : 1;
-    const novaCoordenada = prompt("Digite as coordenadas para a nova mesa (ex: C3):");
-    mesas.push({ id: novaId, coordenadas: novaCoordenada, status: 'Disponível', nome: "" });
-    exibirMesasAdmin();
-    exibirMesasCliente();
-}
 
 function reservarMesa(index) {
     const nome = document.getElementById('nomeReserva').value.trim();

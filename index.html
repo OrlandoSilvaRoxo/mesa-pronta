@@ -4,10 +4,29 @@
 <meta charset="UTF-8">
 <title>Reserva de Mesas</title>
 <link rel="stylesheet" href="styles.css">
+<div class="navbar">
+    <a href="index.html">Voltar </a>
+    <a href="admin.html">Logar</a>
+</div>
 </head>
 <body>
 <h1>Reserva de Mesas</h1>
-<div id="mesas"></div>
+<div id="mesas">
+    <table id="clienteMesas">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Coordenadas</th>
+                <th>Status</th>
+                <th>Nome</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- As linhas serão adicionadas aqui pelo JavaScript -->
+        </tbody>
+    </table>
+</div>
 
 <!-- Modal para reservar a mesa -->
 <div id="modalReserva" class="modal">
