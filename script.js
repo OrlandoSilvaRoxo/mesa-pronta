@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+    var modal = document.getElementById('modalReserva');
+    modal.style.display = 'none';  // Força o modal a ficar escondido ao carregar a página
     setupModal();
     if (document.getElementById('tabelaMesas')) {
         exibirMesasAdmin();
@@ -58,16 +60,6 @@ function adicionarMesa() {
     exibirMesasCliente();
 }
 
-function abrirModal(index) {
-    if (mesas[index].status === 'Disponível') {
-        document.getElementById('nomeReserva').value = "";
-        document.getElementById('modalReserva').style.display = 'block';
-        document.getElementById('reservarButton').onclick = function() { reservarMesa(index); };
-    } else {
-        alert("Mesa já está reservada!");
-    }
-}
-
 function reservarMesa(index) {
     const nome = document.getElementById('nomeReserva').value.trim();
     if (nome) {
@@ -118,17 +110,22 @@ function editarMesa(index) {
 function setupModal() {
     var modal = document.getElementById("modalReserva");
     var span = document.getElementsByClassName("close")[0];
-    if (span) {
-        span.onclick = function() {
-            modal.style.display = "none";
-        };
-    } else {
-        console.error("Elemento 'close' não encontrado!");
-    }
-
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     };
 }
+
+function abrirModal(index) {
+    var modal = document.getElementById('modalReserva');
+    if (mesas[index].status === 'Disponível') {
+        modal.style.display = 'flex'; // Abre o modal somente quando esta condição é verdadeira
+    } else {
+        alert("Mesa já está reservada!");
+    }
+}
+

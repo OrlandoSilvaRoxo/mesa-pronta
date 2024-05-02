@@ -1,20 +1,32 @@
 body {
-    font-family: 'Arial', sans-serif; /* Usar uma fonte mais limpa */
-    background: #EEE8AA;
+    font-family: 'Impact', sans-serif; /* Usar uma fonte mais limpa */
+    background-color: rgba(0,0,0,0.4);
+    background-image: repeating-linear-gradient(
+        45deg,
+        #bfeded,
+        #bfeded 10px,
+        #F0FFF0 10px,
+        #F0FFF0 20px
+    );
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo na vertical */
-    justify-content: center; /* Centraliza o conteúdo na horizontal */
+    align-items: center; /* Centraliza o conteï¿½do na vertical */
+    justify-content: center; /* Centraliza o conteï¿½do na horizontal */
     height: 100vh; /* Torna a altura do body 100% da tela */
 }
 
 h1 {
-    text-align: center; /* Centraliza o título */
-    color: #333; /* Cor escura para o texto para melhor leitura */
-    margin-top: 20px; /* Espaço no topo */
+    font-family: 'Impact', cursive; /* Fonte cursiva, ou 'Brush Script MT' se preferir e estiver disponï¿½vel */
+    text-align: center;
+    color: #002c2c; /* Cor do texto branco */
+    font-size: 48px; /* Tamanho maior do texto */
+    margin-top: 20px;
+    text-shadow: 20px 20px 40px rgba(1, 1, 1, 1.6); /* Sombra preta com certa transparï¿½ncia */
 }
+
+
 
 .modal {
     display: none;
@@ -28,13 +40,13 @@ h1 {
     background-color: rgba(0,0,0,0.4);
     background-image: repeating-linear-gradient(
         45deg,
-        orange,
-        orange 10px,
-        pink 10px,
-        pink 20px
+        #bfeded,
+        #bfeded 10px,
+        #F0FFF0 10px,
+        #F0FFF0 20px
     );
-    align-items: center; /* Centraliza o conteúdo do modal */
-    justify-content: center; /* Centraliza o conteúdo do modal */
+    align-items: center; /* Centraliza o conteï¿½do do modal */
+    justify-content: center; /* Centraliza o conteï¿½do do modal */
     display: flex; /* Permite centralizar com flexbox */
 }
 
@@ -44,7 +56,7 @@ h1 {
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra para destacar o modal */
     width: 80%; /* Ajusta a largura para mobile-first */
-    max-width: 500px; /* Máximo de largura */
+    max-width: 500px; /* Mï¿½ximo de largura */
 }
 
 .close {
@@ -69,6 +81,7 @@ input[type="text"], button {
 }
 
 button {
+    font-family: 'Impact', sans-serif;
     background-color: #008cba; /* Cor azul para destaque */
     color: white;
     font-size: 16px;
