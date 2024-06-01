@@ -4,14 +4,14 @@
 <meta charset="UTF-8">
 <title>Painel de Controle</title>
 <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 <div class="navbar">
     <a href="index.html">Voltar </a>
     <a href="admin.html">Logar</a>
 </div>
-</head>
-<body>
 <h1>Painel de Controle das Mesas</h1>
-<button onclick="adicionarMesa()">Adicionar Mesa</button>
+<button onclick="abrirAddMesaModal()">Adicionar Mesa</button>
 <table id="tabelaMesas">
     <thead>
         <tr>
@@ -26,7 +26,7 @@
     </tbody>
 </table>
 
-<div id="modalReserva" class="modal">
+<div id="modalReserva" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="close">&times;</span>
         <p>Insira seu nome para reservar a mesa:</p>
@@ -34,9 +34,9 @@
         <button id="reservarButton">Reservar</button>
     </div>
 </div>
-<div id="addMesaModal" class="modal">
+<div id="addMesaModal" class="modal" style="display:none;">
     <div class="modal-content">
-        <span class="close" onclick="closeAddModal()">&times;</span>
+        <span class="close">&times;</span>
         <h2>Adicionar Nova Mesa</h2>
         <form id="addMesaForm">
             <label for="coordenadas">Coordenadas:</label>
@@ -45,11 +45,10 @@
             <label for="nome">Nome do Cliente (opcional):</label>
             <input type="text" id="nome" name="nome">
 
-            <input type="button" onclick="salvarNovaMesa()" value="Salvar Mesa">
+            <input type="button" onclick="adicionarMesa()" value="Salvar Mesa">
         </form>
     </div>
 </div>
-
 
 <script src="script.js"></script>
 </body>
