@@ -1,5 +1,6 @@
 const API_URL = 'http://localhost:8000/api.php';
 let isAdmin = false;
+let editingMesaId = null;
 
 document.addEventListener('DOMContentLoaded', function () {
     setupModals();
@@ -47,7 +48,7 @@ async function exibirMesasAdmin() {
         row.insertCell(2).innerText = mesa.status;
         row.insertCell(3).innerText = mesa.nome ? mesa.nome : 'N/A';
         row.insertCell(4).innerHTML = `
-            <button onclick="editarMesa(${mesa.id})">Reservar</button>
+            <button onclick="abrirEditarMesaModal(${mesa.id}, '${mesa.coordenadas}', '${mesa.nome || ''}')">Editar</button>
             <button onclick="removerReserva(${mesa.id})">Remover Reserva</button>
             <button onclick="atualizarMesa(${mesa.id})">Editar Coordenadas</button>
             <button onclick="removerMesa(${mesa.id})">Remover Mesa</button>`;
@@ -134,22 +135,6 @@ async function removerReserva(index) {
     exibirMesasAdmin();
 }
 
-async function editarMesa(index) {
-    const novoNome = prompt("Atualize o nome do cliente:", mesas[index].nome);
-    if (novoNome) {
-        const response = await fetch(API_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id: index, nome: novoNome })
-        });
-        const result = await response.json();
-        console.log(result);
-        exibirMesasAdmin();
-    }
-}
-
 function setupModals() {
     var reservaModal = document.getElementById("modalReserva");
     var addMesaModal = document.getElementById("addMesaModal");
@@ -183,8 +168,21 @@ function abrirModal(index) {
 }
 
 function abrirAddMesaModal() {
+    editingMesaId = null;
     var modal = document.getElementById('addMesaModal');
+    document.getElementById('coordenadas').value = '';
+    document.getElementById('nome').value = '';
     modal.style.display = 'flex';
+    document.getElementById('salvarMesaButton').onclick = adicionarMesa;
+}
+
+function abrirEditarMesaModal(id, coordenadas, nome) {
+    editingMesaId = id;
+    var modal = document.getElementById('addMesaModal');
+    document.getElementById('coordenadas').value = coordenadas;
+    document.getElementById('nome').value = nome;
+    modal.style.display = 'flex';
+    document.getElementById('salvarMesaButton').onclick = editarMesa;
 }
 
 async function adicionarMesa() {
@@ -200,6 +198,27 @@ async function adicionarMesa() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(novaMesa)
+    });
+    const result = await response.json();
+    console.log(result);
+    exibirMesasAdmin();
+    closeAddModal();
+}
+
+async function editarMesa() {
+    var coordenadas = document.getElementById('coordenadas').value.trim();
+    var nome = document.getElementById('nome').value.trim();
+    var mesaEditada = {
+        id: editingMesaId,
+        coordenadas: coordenadas,
+        nome: nome
+    };
+    const response = await fetch(API_URL, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(mesaEditada)
     });
     const result = await response.json();
     console.log(result);

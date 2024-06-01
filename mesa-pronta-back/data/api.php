@@ -29,8 +29,8 @@ class MesaAPI {
         return $this->db->executar_query_sql($query);
     }
 
-    public function atualizarMesa($id, $coordenadas) {
-        $query = "UPDATE mesas SET coordenadas = '$coordenadas' WHERE id = $id";
+    public function atualizarMesa($id, $coordenadas, $nome = '') {
+        $query = "UPDATE mesas SET coordenadas = '$coordenadas', nome = '$nome' WHERE id = $id";
         return $this->db->executar_query_sql($query);
     }
 
@@ -86,10 +86,10 @@ switch ($method) {
         break;
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
-        if (isset($data['id'], $data['nome'])) {
+        if (isset($data['id'], $data['nome'], $data['coordenadas'])) {
+            echo $api->atualizarMesa($data['id'], $data['coordenadas'], $data['nome']);
+        } elseif (isset($data['id'], $data['nome'])) {
             echo $api->reservarMesa($data['id'], $data['nome']);
-        } elseif (isset($data['id'], $data['coordenadas'])) {
-            echo $api->atualizarMesa($data['id'], $data['coordenadas']);
         }
         break;
     case 'DELETE':
