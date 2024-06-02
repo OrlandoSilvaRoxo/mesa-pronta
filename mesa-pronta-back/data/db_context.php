@@ -53,5 +53,26 @@ class DbContext {
     
         return json_encode(array('success' => FALSE));
     }
+
+    public function executar_query_sql_array($query) {
+        $resultado = $this->conexao->query($query);
+        if (!$resultado) {
+            return [];
+        }
+
+        if ($resultado === TRUE) {
+            return [];
+        }
+
+        if ($resultado->num_rows > 0) {
+            $linhas = array();
+            while ($linha = $resultado->fetch_assoc()) {
+                $linhas[] = $linha;
+            }
+            return $linhas;
+        }
+
+        return [];
+    }
 }
 ?>

@@ -47,15 +47,27 @@ class MesaAPI {
     }
 
     public function autenticarAdmin($username, $password) {
-        // Mocked login credentials
-        $validUsername = 'admin';
-        $validPassword = '123';
+        $query = "SELECT * FROM users WHERE username = '$username'";
+        $result = $this->db->executar_query_sql_array($query);
 
-        if ($username === $validUsername && $password === $validPassword) {
-            return json_encode(['success' => true]);
+        error_log("Query result: " . print_r($result, true));
+
+        // Verificar se a consulta retornou resultados válidos
+        if (is_array($result) && count($result) > 0) {
+            $user = $result[0];
+            error_log("User found: " . print_r($user, true));
+            error_log("Comparing password: input($password) == stored(" . $user['password'] . ")");
+            // Comparar a senha em texto plano
+            if (strcmp($password, $user['password']) === 0) {
+                error_log("Password match");
+                return json_encode(['success' => true]);
+            } else {
+                error_log("Password mismatch: input($password) != stored(" . $user['password'] . ")");
+            }
         } else {
-            return json_encode(['success' => false]);
+            error_log("No user found");
         }
+        return json_encode(['success' => false]);
     }
 }
 
