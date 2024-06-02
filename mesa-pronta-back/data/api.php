@@ -19,9 +19,15 @@ class MesaAPI {
         return $this->db->executar_query_sql($query);
     }
 
-    public function reservarMesa($id, $status) {
-        $novoStatus = ($status == 'Disponível') ? 'Reservado' : 'Disponível';
-        $query = "UPDATE mesas SET status = '$novoStatus' WHERE id = $id";
+    public function reservarMesa($id, $nome) {
+        // Primeiro, obtemos o status atual da mesa
+        $queryStatus = "SELECT status FROM mesas WHERE id = $id";
+        $result = $this->db->executar_query_sql($queryStatus);
+        $statusAtual = $result[0]['status'];
+
+        // Mudamos o status dependendo do status atual
+        $novoStatus = ($statusAtual == 'Disponível') ? 'Reservado' : 'Disponível';
+        $query = "UPDATE mesas SET status = '$novoStatus', nome = '$nome' WHERE id = $id";
         return $this->db->executar_query_sql($query);
     }
 
@@ -92,10 +98,12 @@ switch ($method) {
             echo $api->atualizarMesa($data['id'], $data['coordenadas'], $data['nome']);
         } elseif (isset($data['id'], $data['status'])) {
             echo $api->alterarStatusMesa($data['id'], $data['status']);
+        } elseif (isset($data['id'], $data['nome'])) {
+            echo $api->reservarMesa($data['id'], $data['nome']);
         }
         break;
     case 'DELETE':
-        parse_str(file_get_contents('php://input'), $data);
+        $data = json_decode(file_get_contents('php://input'), true);
         if (isset($data['id'])) {
             echo $api->removerMesa($data['id']);
         }
