@@ -1,0 +1,6 @@
+CREATE TABLE mesas (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    coordenadas VARCHAR(255) NOT NULL,
+    nome VARCHAR(255) NULL,
+    status VARCHAR(255) NOT NULL
+);
