@@ -24,6 +24,11 @@ class MesaAPI {
         return $this->db->executar_query_sql($query);
     }
 
+    public function liberarMesa($id) {
+        $query = "UPDATE mesas SET status = 'Disponível', nome = '' WHERE id = $id";
+        return $this->db->executar_query_sql($query);
+    }
+
     public function atualizarMesa($id, $coordenadas, $nome = '') {
         $query = "UPDATE mesas SET coordenadas = '$coordenadas', nome = '$nome' WHERE id = $id";
         return $this->db->executar_query_sql($query);
@@ -41,9 +46,11 @@ class MesaAPI {
     }
 
     public function alterarStatusMesa($id, $status) {
-        $novoStatus = ($status == 'Disponível') ? 'Reservado' : 'Disponível';
-        $query = "UPDATE mesas SET status = '$novoStatus' WHERE id = $id";
-        return $this->db->executar_query_sql($query);
+        if ($status == 'Disponível') {
+            return $this->liberarMesa($id);
+        } else {
+            return json_encode(['success' => false, 'message' => 'Action not allowed directly.']);
+        }
     }
 
     public function autenticarAdmin($username, $password) {
@@ -52,12 +59,10 @@ class MesaAPI {
 
         error_log("Query result: " . print_r($result, true));
 
-        // Verificar se a consulta retornou resultados válidos
         if (is_array($result) && count($result) > 0) {
             $user = $result[0];
             error_log("User found: " . print_r($user, true));
             error_log("Comparing password: input($password) == stored(" . $user['password'] . ")");
-            // Comparar a senha em texto plano
             if (strcmp($password, $user['password']) === 0) {
                 error_log("Password match");
                 return json_encode(['success' => true]);
@@ -99,12 +104,12 @@ switch ($method) {
         break;
     case 'PUT':
         $data = json_decode(file_get_contents('php://input'), true);
-        if (isset($data['id'], $data['nome'], $data['coordenadas'])) {
-            echo $api->atualizarMesa($data['id'], $data['coordenadas'], $data['nome']);
+        if (isset($data['id'], $data['nome']) && !isset($data['coordenadas'])) {
+            echo $api->reservarMesa($data['id'], $data['nome']);
         } elseif (isset($data['id'], $data['status'])) {
             echo $api->alterarStatusMesa($data['id'], $data['status']);
-        } elseif (isset($data['id'], $data['nome'])) {
-            echo $api->reservarMesa($data['id'], $data['nome']);
+        } elseif (isset($data['id'], $data['coordenadas'])) {
+            echo $api->atualizarMesa($data['id'], $data['coordenadas'], isset($data['nome']) ? $data['nome'] : '');
         }
         break;
     case 'DELETE':

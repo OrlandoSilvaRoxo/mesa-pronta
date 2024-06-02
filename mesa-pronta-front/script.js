@@ -88,12 +88,13 @@ async function reservarMesa(index) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: index, nome: nome, action: 'reservar' })
+            body: JSON.stringify({ id: index, nome: nome })
         });
         const result = await response.json();
         console.log(result);
         document.getElementById('modalReserva').style.display = 'none';
         exibirMesasCliente(); // Atualiza a lista de mesas para o cliente
+        exibirMesasAdmin(); // Atualiza a lista de mesas para o admin
     } else {
         alert("Por favor, insira um nome para fazer a reserva.");
     }
@@ -114,16 +115,21 @@ async function removerMesa(index) {
 }
 
 async function alterarStatusMesa(index, status) {
-    const response = await fetch(API_URL, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id: index, status: status })
-    });
-    const result = await response.json();
-    console.log(result);
-    exibirMesasAdmin();
+    if (status === 'Disponível') {
+        abrirModal(index);
+    } else {
+        const response = await fetch(API_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id: index, status: 'Disponível' })
+        });
+        const result = await response.json();
+        console.log(result);
+        exibirMesasAdmin();
+        exibirMesasCliente(); // Atualiza a lista de mesas para o cliente
+    }
 }
 
 function setupModals() {
