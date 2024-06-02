@@ -19,13 +19,9 @@ class MesaAPI {
         return $this->db->executar_query_sql($query);
     }
 
-    public function reservarMesa($id, $nome) {
-        $query = "UPDATE mesas SET status = 'Reservado', nome = '$nome' WHERE id = $id";
-        return $this->db->executar_query_sql($query);
-    }
-
-    public function removerReserva($id) {
-        $query = "UPDATE mesas SET status = 'Disponível', nome = '' WHERE id = $id";
+    public function reservarMesa($id, $status) {
+        $novoStatus = ($status == 'Disponível') ? 'Reservado' : 'Disponível';
+        $query = "UPDATE mesas SET status = '$novoStatus' WHERE id = $id";
         return $this->db->executar_query_sql($query);
     }
 
@@ -42,6 +38,12 @@ class MesaAPI {
     public function adicionarMesa($coordenadas, $nome) {
         $status = $nome ? 'Reservado' : 'Disponível';
         $query = "INSERT INTO mesas (coordenadas, status, nome) VALUES ('$coordenadas', '$status', '$nome')";
+        return $this->db->executar_query_sql($query);
+    }
+
+    public function alterarStatusMesa($id, $status) {
+        $novoStatus = ($status == 'Disponível') ? 'Reservado' : 'Disponível';
+        $query = "UPDATE mesas SET status = '$novoStatus' WHERE id = $id";
         return $this->db->executar_query_sql($query);
     }
 
@@ -88,15 +90,13 @@ switch ($method) {
         $data = json_decode(file_get_contents('php://input'), true);
         if (isset($data['id'], $data['nome'], $data['coordenadas'])) {
             echo $api->atualizarMesa($data['id'], $data['coordenadas'], $data['nome']);
-        } elseif (isset($data['id'], $data['nome'])) {
-            echo $api->reservarMesa($data['id'], $data['nome']);
+        } elseif (isset($data['id'], $data['status'])) {
+            echo $api->alterarStatusMesa($data['id'], $data['status']);
         }
         break;
     case 'DELETE':
         parse_str(file_get_contents('php://input'), $data);
-        if (isset($data['id']) && isset($data['removerReserva'])) {
-            echo $api->removerReserva($data['id']);
-        } elseif (isset($data['id'])) {
+        if (isset($data['id'])) {
             echo $api->removerMesa($data['id']);
         }
         break;

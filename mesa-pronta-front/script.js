@@ -49,8 +49,7 @@ async function exibirMesasAdmin() {
         row.insertCell(3).innerText = mesa.nome ? mesa.nome : 'N/A';
         row.insertCell(4).innerHTML = `
             <button onclick="abrirEditarMesaModal(${mesa.id}, '${mesa.coordenadas}', '${mesa.nome || ''}')">Editar</button>
-            <button onclick="removerReserva(${mesa.id})">Remover Reserva</button>
-            <button onclick="atualizarMesa(${mesa.id})">Editar Coordenadas</button>
+            <button onclick="alterarStatusMesa(${mesa.id}, '${mesa.status}')">${mesa.status === 'Disponível' ? 'Reservar' : 'Liberar'}</button>
             <button onclick="removerMesa(${mesa.id})">Remover Mesa</button>`;
     });
 }
@@ -106,29 +105,13 @@ async function removerMesa(index) {
     exibirMesasCliente();
 }
 
-async function atualizarMesa(index) {
-    const coordenadas = prompt("Atualize as coordenadas da mesa (ex: D4):", mesas[index].coordenadas);
-    if (coordenadas) {
-        const response = await fetch(API_URL, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id: index, coordenadas: coordenadas })
-        });
-        const result = await response.json();
-        console.log(result);
-        exibirMesasAdmin();
-    }
-}
-
-async function removerReserva(index) {
+async function alterarStatusMesa(index, status) {
     const response = await fetch(API_URL, {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ id: index, removerReserva: true })
+        body: JSON.stringify({ id: index, status: status })
     });
     const result = await response.json();
     console.log(result);
@@ -228,4 +211,8 @@ async function editarMesa() {
 
 function closeAddModal() {
     document.getElementById('addMesaModal').style.display = 'none';
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
 }
