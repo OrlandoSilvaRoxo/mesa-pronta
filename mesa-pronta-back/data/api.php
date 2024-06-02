@@ -20,14 +20,7 @@ class MesaAPI {
     }
 
     public function reservarMesa($id, $nome) {
-        // Primeiro, obtemos o status atual da mesa
-        $queryStatus = "SELECT status FROM mesas WHERE id = $id";
-        $result = $this->db->executar_query_sql($queryStatus);
-        $statusAtual = $result[0]['status'];
-
-        // Mudamos o status dependendo do status atual
-        $novoStatus = ($statusAtual == 'Disponível') ? 'Reservado' : 'Disponível';
-        $query = "UPDATE mesas SET status = '$novoStatus', nome = '$nome' WHERE id = $id";
+        $query = "UPDATE mesas SET status = 'Reservado', nome = '$nome' WHERE id = $id";
         return $this->db->executar_query_sql($query);
     }
 

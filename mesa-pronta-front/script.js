@@ -88,13 +88,12 @@ async function reservarMesa(index) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ id: index, nome: nome })
+            body: JSON.stringify({ id: index, nome: nome, action: 'reservar' })
         });
         const result = await response.json();
         console.log(result);
         document.getElementById('modalReserva').style.display = 'none';
-        exibirMesasAdmin();
-        exibirMesasCliente();
+        exibirMesasCliente(); // Atualiza a lista de mesas para o cliente
     } else {
         alert("Por favor, insira um nome para fazer a reserva.");
     }
