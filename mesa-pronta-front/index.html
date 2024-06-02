@@ -1,21 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Login Admin</title>
-<link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurante Gourmet</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .header {
+            background-image: url('restaurante.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 70vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .header h1 {
+            font-size: 4em;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 2em;
+            flex: 1;
+            background-color: #e1dfcf; /* Cor ajustada */
+            color: black;
+        }
+        .container p {
+            font-size: 1.2em;
+        }
+        .btn {
+            background-color: #ff634765;
+            color: white;
+            border: none;
+            padding: 1em 2em;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn:hover {
+            background-color: #e5533d;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1em 0;
+        }
+    </style>
 </head>
 <body>
-<div class="navbar">
-  <a href="index.html">Voltar </a>
-  <a href="admin.html">Logar</a>
-</div>
-<h1>Login Administração</h1>
-<form id="loginForm">
-  <input type="text" id="username" placeholder="Usuário" required>
-  <input type="password" id="password" placeholder="Senha" required>
-  <button type="submit">Login</button>
-</form>
-<script src="script.js"></script>
+    <div class="header">
+        <h1>Bem-vindo ao Restaurante Gourmet</h1>
+    </div>
+    <div class="container">
+        <p>Desfrute da melhor experiência culinária em um ambiente elegante e acolhedor.</p>
+        <a href="dashboard.html" class="btn">Faça sua Reserva</a>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 Restaurante Gourmet. Todos os direitos reservados.</p>
+    </div>
 </body>
 </html>
