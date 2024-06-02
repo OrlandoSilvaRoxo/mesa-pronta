@@ -40,10 +40,27 @@ h1 {
     margin: 5px 0;
     background-color: #444;
     border-radius: 4px;
+    transition: background-color 0.3s ease;
 }
 
 .sidebar a:hover {
     background-color: #555;
+}
+
+.btn-logout {
+    background-color: #ff6347;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-logout i {
+    margin-right: 8px;
+}
+
+.btn-logout:hover {
+    background-color: #e5533d;
 }
 
 .content {

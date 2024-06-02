@@ -238,3 +238,8 @@ function abrirLoginModal() {
     var modal = document.getElementById('loginModal');
     modal.style.display = 'flex';
 }
+
+function logout() {
+    localStorage.removeItem('isAdmin');
+    window.location.href = 'index.html';
+}
