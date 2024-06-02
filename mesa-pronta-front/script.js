@@ -4,18 +4,14 @@ let editingMesaId = null;
 
 document.addEventListener('DOMContentLoaded', function () {
     setupModals();
-    if (document.getElementById('tabelaMesas')) {
-        exibirMesasAdmin();
-    } else if (document.getElementById('mesas')) {
-        exibirMesasCliente();
-    }
+    checkUserStatus();
 
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', async function (event) {
+    const loginModalForm = document.getElementById('loginModalForm');
+    if (loginModalForm) {
+        loginModalForm.addEventListener('submit', async function (event) {
             event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('modalUsername').value;
+            const password = document.getElementById('modalPassword').value;
             const response = await fetch(API_URL, {
                 method: 'POST',
                 headers: {
@@ -26,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const result = await response.json();
             if (result.success) {
                 isAdmin = true;
+                localStorage.setItem('isAdmin', 'true');
                 window.location.href = 'dashboard.html';
             } else {
                 alert('Login falhou');
@@ -33,6 +30,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+
+async function checkUserStatus() {
+    isAdmin = localStorage.getItem('isAdmin') === 'true';
+    if (isAdmin) {
+        document.getElementById('addMesaButton').style.display = 'block';
+        document.getElementById('tabelaMesas').style.display = 'table';
+        exibirMesasAdmin();
+    } else {
+        document.getElementById('clienteMesas').style.display = 'table';
+        exibirMesasCliente();
+    }
+}
 
 async function exibirMesasAdmin() {
     const tbody = document.getElementById('tabelaMesas').getElementsByTagName('tbody')[0];
@@ -121,15 +130,20 @@ async function alterarStatusMesa(index, status) {
 function setupModals() {
     var reservaModal = document.getElementById("modalReserva");
     var addMesaModal = document.getElementById("addMesaModal");
+    var loginModal = document.getElementById("loginModal");
 
     var reservaSpan = document.getElementsByClassName("close")[0];
     var addMesaSpan = document.getElementsByClassName("close")[1];
+    var loginSpan = document.getElementsByClassName("close")[2];
 
     reservaSpan.onclick = function() {
         reservaModal.style.display = "none";
     };
     addMesaSpan.onclick = function() {
         addMesaModal.style.display = "none";
+    };
+    loginSpan.onclick = function() {
+        loginModal.style.display = "none";
     };
     
     window.onclick = function(event) {
@@ -138,6 +152,9 @@ function setupModals() {
         }
         if (event.target == addMesaModal) {
             addMesaModal.style.display = "none";
+        }
+        if (event.target == loginModal) {
+            loginModal.style.display = "none";
         }
     };
 }
@@ -215,4 +232,9 @@ function closeAddModal() {
 
 function closeModal(modalId) {
     document.getElementById(modalId).style.display = 'none';
+}
+
+function abrirLoginModal() {
+    var modal = document.getElementById('loginModal');
+    modal.style.display = 'flex';
 }

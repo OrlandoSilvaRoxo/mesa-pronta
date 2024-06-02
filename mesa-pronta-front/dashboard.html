@@ -7,12 +7,12 @@
 </head>
 <body>
 <div class="navbar">
-    <a href="index.html">Voltar </a>
-    <a href="admin.html">Logar</a>
+    <a href="index.html">Voltar</a>
+    <a href="#" onclick="abrirLoginModal()">Logar</a>
 </div>
 <h1>Painel de Controle das Mesas</h1>
-<button onclick="abrirAddMesaModal()">Adicionar Mesa</button>
-<table id="tabelaMesas">
+<button id="addMesaButton" style="display:none;" onclick="abrirAddMesaModal()">Adicionar Mesa</button>
+<table id="tabelaMesas" style="display:none;">
     <thead>
         <tr>
             <th>ID</th>
@@ -20,6 +20,20 @@
             <th>Status</th>
             <th>Nome</th>
             <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<table id="clienteMesas" style="display:none;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Coordenadas</th>
+            <th>Status</th>
+            <th>Nome</th>
+            <th>Ação</th>
         </tr>
     </thead>
     <tbody>
@@ -34,6 +48,7 @@
         <button id="reservarButton">Reservar</button>
     </div>
 </div>
+
 <div id="addMesaModal" class="modal" style="display:none;">
     <div class="modal-content">
         <span class="close" onclick="closeModal('addMesaModal')">&times;</span>
@@ -46,6 +61,22 @@
             <input type="text" id="nome" name="nome">
 
             <input type="button" id="salvarMesaButton" value="Salvar Mesa">
+        </form>
+    </div>
+</div>
+
+<div id="loginModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('loginModal')">&times;</span>
+        <h2>Login Admin</h2>
+        <form id="loginModalForm">
+            <label for="modalUsername">Username:</label>
+            <input type="text" id="modalUsername" name="modalUsername" required>
+            
+            <label for="modalPassword">Password:</label>
+            <input type="password" id="modalPassword" name="modalPassword" required>
+            
+            <input type="submit" value="Login">
         </form>
     </div>
 </div>
