@@ -76,7 +76,7 @@ async function exibirMesasCliente() {
         row.insertCell(1).innerText = mesa.coordenadas;  // Coordenadas
         row.insertCell(2).innerText = mesa.status;  // Status da reserva
         row.insertCell(3).innerText = mesa.nome ? mesa.nome : 'N/A';  // Nome do cliente
-        row.insertCell(4).innerHTML = `<button onclick="abrirModal(${mesa.id})">Reservar</button>`;  // Botão de ação
+        row.insertCell(4).innerHTML = mesa.status === 'Disponível' ? `<button onclick="abrirModal(${mesa.id})">Reservar</button>` : 'Reservado';  // Botão de ação
     });
 }
 
@@ -91,10 +91,14 @@ async function reservarMesa(index) {
             body: JSON.stringify({ id: index, nome: nome })
         });
         const result = await response.json();
-        console.log(result);
-        document.getElementById('modalReserva').style.display = 'none';
-        exibirMesasCliente(); // Atualiza a lista de mesas para o cliente
-        exibirMesasAdmin(); // Atualiza a lista de mesas para o admin
+        if (result.success) {
+            console.log(result);
+            document.getElementById('modalReserva').style.display = 'none';
+            exibirMesasCliente(); // Atualiza a lista de mesas para o cliente
+            exibirMesasAdmin(); // Atualiza a lista de mesas para o admin
+        } else {
+            alert(result.message);
+        }
     } else {
         alert("Por favor, insira um nome para fazer a reserva.");
     }

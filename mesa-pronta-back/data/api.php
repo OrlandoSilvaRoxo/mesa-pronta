@@ -20,8 +20,13 @@ class MesaAPI {
     }
 
     public function reservarMesa($id, $nome) {
-        $query = "UPDATE mesas SET status = 'Reservado', nome = '$nome' WHERE id = $id";
-        return $this->db->executar_query_sql($query);
+        $mesa = $this->db->executar_query_sql_array("SELECT status FROM mesas WHERE id = $id");
+        if ($mesa[0]['status'] == 'Disponível') {
+            $query = "UPDATE mesas SET status = 'Reservado', nome = '$nome' WHERE id = $id";
+            return $this->db->executar_query_sql($query);
+        } else {
+            return json_encode(['success' => false, 'message' => 'Mesa já reservada']);
+        }
     }
 
     public function liberarMesa($id) {
