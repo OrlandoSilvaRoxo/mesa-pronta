@@ -6,6 +6,9 @@ Este projeto web para reservas de mesas de um restaurante conta com backend sepa
 
 * Xampp Control Panel V.3.3.0
 * PHP Cli 8.3.7
+* HTML 5
+* Javascript ES6
+* CSS 3
 
 ## Instruções de compilação e execução
 
